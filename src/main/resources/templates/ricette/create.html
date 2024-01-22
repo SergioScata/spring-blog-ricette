@@ -58,6 +58,12 @@
                 </ul>
             </div>
         </div>
+        <div class="col-4 my-2">
+            <h4>Categoria</h4>
+            <select th:field="*{categoria}">
+                <option th:each="cat : ${categorieList}"  th:value="${cat.id}" th:text="${cat.name}"></option>
+            </select>
+        </div>
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Save</button>
             <a class="btn btn-primary" th:href="@{/ricette}">Cancel</a>
