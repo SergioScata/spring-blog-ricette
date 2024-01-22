@@ -25,9 +25,16 @@ public class Ricetta {
     @NotEmpty
     @Lob
     private String text;
-   @ManyToOne
-   private Categoria categoria;
+    @ManyToOne
+    private Categoria categoria;
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
     public Integer getId() {
         return id;
     }

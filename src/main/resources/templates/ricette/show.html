@@ -22,12 +22,13 @@
             <p class="text-light, text-center" th:text="${ricetta.ingredients}"></p>
             <p class="text-light, text-center" th:text="|${ricetta.prepTime} minuti|"></p>
             <p class="text-light, text-center" th:text="|numero di porzioni:  ${ricetta.numberOfPortions}|"></p>
-            <p class="text-light, text-center" th:text="${ricetta.categoria}"></p>
+            <p class="text-light, text-center" th:text="${ricetta.categoria.name}"></p>
         </div>
     </div>
     <div>
         <a th:href="@{/ricette}">Ritorna alla lista</a>
     </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>

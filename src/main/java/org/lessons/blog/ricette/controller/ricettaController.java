@@ -2,6 +2,7 @@ package org.lessons.blog.ricette.controller;
 
 import jakarta.validation.Valid;
 import org.lessons.blog.ricette.model.Ricetta;
+import org.lessons.blog.ricette.repository.CategoriaRepository;
 import org.lessons.blog.ricette.repository.RicettaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,9 @@ public class ricettaController {
 
     @Autowired
     private RicettaRepository ricettaRepository;
+
+    @Autowired
+    private CategoriaRepository  categoriaRepository;
 
     @GetMapping
     public String index(@RequestParam(name = "keyword", required = false) String searchKeyword, Model model) {
@@ -50,12 +54,14 @@ public class ricettaController {
     public String create(Model model) {
         Ricetta ricetta = new Ricetta();
         model.addAttribute("ricetta", ricetta);
+        model.addAttribute("categorieList", categoriaRepository.findAll());
         return "ricette/create";
     }
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("ricetta") Ricetta formRicetta, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("categorieList", categoriaRepository.findAll());
             return "ricette/create";
         }
         Ricetta savedRicetta = ricettaRepository.save(formRicetta);
@@ -67,6 +73,7 @@ public class ricettaController {
         Optional<Ricetta> result = ricettaRepository.findById(id);
         if(result.isPresent()){
             model.addAttribute("ricetta", result.get());
+            model.addAttribute("categorieList", categoriaRepository.findAll());
             return "ricette/edit";
         }else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe with id" + id + "not found");
