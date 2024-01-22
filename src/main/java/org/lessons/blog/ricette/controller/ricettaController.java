@@ -26,12 +26,11 @@ public class ricettaController {
     public String index(@RequestParam(name = "keyword", required = false) String searchKeyword, Model model) {
         List<Ricetta> ricettaList;
         if (searchKeyword != null){
-            ricettaList = ricettaRepository.findByTitleContainingOrIngredientsContaining(searchKeyword,searchKeyword );
+            ricettaList = ricettaRepository.findByTitleContainingOrIngredientsContaining(searchKeyword, searchKeyword);
         }else{
             ricettaList = ricettaRepository.findAll();
         }
         model.addAttribute("ricettaList", ricettaList);
-
         model.addAttribute("preloadSearch", searchKeyword);
         return "ricette/list";
     }
@@ -84,7 +83,7 @@ public class ricettaController {
             }
             formRicetta.setPhoto(ricettaToEdit.getPhoto());
             Ricetta savedRicetta = ricettaRepository.save(formRicetta);
-            return "redirect:/ricette/show/" + id;
+            return "redirect:/ricette/show";
         }else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe with id" + id + "not found");
         }

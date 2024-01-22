@@ -14,14 +14,18 @@
 <div class="container">
     <h1>Recipes List</h1>
     <div class="row mb-3">
-        <form id="ricetta-search"
-              th:action="@{/ricetta}"
+        <form id="ricette-search"
+              th:action="@{/ricette}"
               method="get"
               class="col-4"
         >
             <div class="input-group">
                 <input class="form-control" type="text" name="keyword" id="keyword" placeholder="Search recipes by name or ingredients" th:value="${preloadSearch}">
                 <button type="submit" class="btn btn-warning">Search</button>
+            </div>
+            <div class="mt-3 d-flex justify-content-end">
+                <a class="btn btn-primary" th:href="@{/ricette/create}">Aggiungi la tua ricetta</a>
+                <a class="btn btn-primary mx-2" th:href="@{/categorie}">Categorie</a>
             </div>
         </form>
     </div>
