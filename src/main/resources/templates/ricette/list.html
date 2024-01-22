@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Lista Ricette</title>
+</head>
+<body>
+<div class="container">
+    <h1>Recipes List</h1>
+    <div class="row mb-3">
+        <form id="ricetta-search"
+              th:action="@{/ricetta}"
+              method="get"
+              class="col-4"
+        >
+            <div class="input-group">
+                <input class="form-control" type="text" name="keyword" id="keyword" placeholder="Search recipes by name or ingredients" th:value="${preloadSearch}">
+                <button type="submit" class="btn btn-warning">Search</button>
+            </div>
+        </form>
+    </div>
+    <div th:if="${ricettaList.size() == 0}">The list is empty</div>
+    <table class="table" th:unless="${ricettaList.size() == 0}">
+        <tbody>
+        <tr th:each="ric : ${ricettaList}">
+            <td th:text="${ric.title}"></td>
+            <td>
+                <div class="card" style="width: 18rem;">
+                    <img th:src=@{${ric.photo}} class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${ric.title}"></h5>
+                        <p class="card-text" th:text="${ric.text}"></p>
+                        <a th:href="@{/ricette/show/{id}(id=${ric.id})}" class="btn btn-primary mx-2 my-2">See Detail page</a>
+                        <a th:href="@{/ricette/edit/{id}(id=${ric.id})}" class="btn btn-primary mx-2 my-2">Edit recipe</a>
+                        <form th:action="@{/ricette/delete/{id}(id=${ric.id})}" method="post">
+                            <button type="submit" class="btn btn-success mx-2 my-2">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <div th:text="${redirectMessage}" th:if="${redirectMessage !=null}"></div>
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+</html>
